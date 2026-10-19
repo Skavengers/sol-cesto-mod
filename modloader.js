@@ -99,6 +99,13 @@
 			return [info.GetWidth(), info.GetHeight()];
 		},
 
+		// déplace un point d'image existant (coordonnées normalisées, comme l'origine)
+		setImagePoint(objName, animName, frameIndex, pointName, [x, y]) {
+			const p = frameInfo(objName, animName, frameIndex)._imagePointsByName.get(pointName);
+			if (!p) throw new Error("point d'image introuvable : " + pointName);
+			p._pos.set(x, y);
+		},
+
 		frameOrigin(objName, animName, frameIndex = 0) {
 			const f = frameInfo(objName, animName, frameIndex);
 			return [f.GetOriginX(), f.GetOriginY()];

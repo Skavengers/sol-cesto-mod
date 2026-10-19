@@ -276,15 +276,27 @@
 	// ------------------------------------------------------------------
 	let hubInst = null;
 
+	// Le jeu affiche 4 états (normal, survol, choisi, choisi+survol) ; les animations libres de meta_perso n'ont que
+	// 2 images : "Animation 8" = non choisi (normal / survol), "Animation 6" = choisi, lanterne en main (normal / survol).
+	const HUB_ANIM = "Animation 8", HUB_ANIM_CHOISI = "Animation 6";
+
 	async function setupHub(rt) {
 		const type = rt.objects.meta_perso;
 		const ref = type.getAllInstances()[0];
 		if (!ref) return;
 		const m = await getManifest();
+		const blobs = await Promise.all(m.hub.map(img));
+		await Promise.all([0, 1].map(i => IMG.replaceImage("meta_perso", HUB_ANIM, i, blobs[i])));
+		// même origine pour les deux animations : pas de saut au moment de la sélection
+		const origin = IMG.frameOrigin("meta_perso", HUB_ANIM);
+		await Promise.all([0, 1].map(i => IMG.replaceImage("meta_perso", HUB_ANIM_CHOISI, i, blobs[i + 2], origin)));
+		// point "lanterne" : le jeu y place la lueur de la lanterne du héros choisi
+		for (const anim of [HUB_ANIM, HUB_ANIM_CHOISI]) for (const i of [0, 1])
+			IMG.setImagePoint("meta_perso", anim, i, "lanterne", m.lanterne);
+
 		const inst = type.createInstance(ref.layer.name, HERO.hubPos[0], HERO.hubPos[1]);
-		await IMG.replaceFrames(inst, "Animation 8", await Promise.all(m.hub.map(img)));
-		inst.setAnimation("Animation 8");   // sinon l'instance garde l'animation par défaut de meta_perso (le lézard)
-		const [w, h] = IMG.frameSize("meta_perso", "Animation 8");
+		inst.setAnimation(HUB_ANIM);   // sinon l'instance garde l'animation par défaut de meta_perso (le lézard)
+		const [w, h] = IMG.frameSize("meta_perso", HUB_ANIM);
 		inst.width = w * HERO.hubScale; inst.height = h * HERO.hubScale;
 		Object.assign(inst.instVars, {
 			selectionnay: false, numero: HERO.numero, unlock: true,
@@ -295,14 +307,19 @@
 	}
 
 	function tickHub() {
-		const inst = hubInst;
+		const inst = hubInst, rt = M.runtime;
 		if (!inst || inst.isDestroyed) return;
-		syncImages(isPacman(M.runtime));   // préchargement / restauration selon le héros choisi
+		syncImages(isPacman(rt));   // préchargement / restauration selon le héros choisi
 		// toujours débloqué, sans le filtre "verrouillé"
 		if (!inst.instVars.unlock) inst.instVars.unlock = true;
 		for (const fx of inst.effects || []) if (fx.name === "SetColor" && fx.isActive) fx.isActive = false;
-		// le jeu utilise 4 images (normal, survol, choisi, choisi+survol) : on n'en a que 2
-		if (inst.animationFrame > 1) inst.animationFrame = 1;
+		// état affiché : choisi -> lanterne en main ; survol -> contour blanc
+		const curseur = rt.objects.curseur_collision.getFirstInstance();
+		const survol = !!curseur && inst.testOverlap(curseur);
+		const anim = inst.instVars.selectionnay ? HUB_ANIM_CHOISI : HUB_ANIM;
+		if (inst.animation.name !== anim) inst.setAnimation(anim);
+		const frame = survol ? 1 : 0;
+		if (inst.animationFrame !== frame) inst.animationFrame = frame;
 	}
 
 	// ------------------------------------------------------------------

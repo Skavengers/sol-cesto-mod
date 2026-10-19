@@ -219,6 +219,15 @@ def recolor(img, rgb):
     return out
 
 
+def outline_in_place(img, size, rgb=(255, 255, 255)):
+    """Contour coloré autour du dessin, sans changer la taille de l'image (il faut une marge transparente)."""
+    a = img.getchannel("A").point(lambda v: 255 if v > 40 else 0).filter(ImageFilter.MaxFilter(size * 2 + 1))
+    ring = Image.new("RGBA", img.size, rgb + (255,))
+    ring.putalpha(a)
+    ring.alpha_composite(img)
+    return ring
+
+
 def outline(img, size, rgb):
     """Ajoute un contour coloré autour du dessin (effet "survol" du hub)."""
     pad = size + 2
@@ -261,16 +270,33 @@ def main():
         img.save(os.path.join(OUT, name))
         manifest["heros"].append({"anim": anim, "frame": frame, "file": name})
 
-    # hub : vue de face, frame 0 normale, frame 1 avec contour blanc (survol / sélection)
-    hub = trim(remove_white(Image.open(os.path.join(HERE, "hub.jpg"))))
-    k = 300 / hub.height
-    hub = hub.resize((round(hub.width * k), 300), Image.LANCZOS)
-    hub0 = Image.new("RGBA", (hub.width + 16, hub.height + 16), (0, 0, 0, 0))
-    hub0.alpha_composite(hub, (8, 8))
-    hub1 = outline(hub, 5, (255, 255, 255)).resize(hub0.size, Image.LANCZOS)
-    hub0.save(os.path.join(OUT, "hub_0.png"))
-    hub1.save(os.path.join(OUT, "hub_1.png"))
-    manifest["hub"] = ["hub_0.png", "hub_1.png"]
+    # hub : 4 images de même taille, figures alignées à gauche et en bas
+    #   hub_0 normal, hub_1 survol (contour blanc), hub_2 sélectionné (tient la lanterne), hub_3 sélectionné + survol
+    def hub_figure(name):
+        img = remove_white(Image.open(os.path.join(HERE, name)))
+        box = img.getbbox()
+        img = img.crop(box)
+        k = 300 / img.height
+        return img.resize((round(img.width * k), 300), Image.LANCZOS), box, k
+    normal, _, _ = hub_figure("hub.jpg")
+    lantern, lbox, lk = hub_figure("hub_lanterne.jpg")
+    PAD = 8
+    W, H = max(normal.width, lantern.width) + 2 * PAD, 300 + 2 * PAD
+    def on_canvas(fig):
+        c = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        c.alpha_composite(fig, (PAD, PAD))
+        return c
+    hubs = [on_canvas(normal), None, on_canvas(lantern), None]
+    hubs[1], hubs[3] = outline_in_place(hubs[0], 5), outline_in_place(hubs[2], 5)
+    manifest["hub"] = []
+    for i, img in enumerate(hubs):
+        img.save(os.path.join(OUT, f"hub_{i}.png"))
+        manifest["hub"].append(f"hub_{i}.png")
+    # point "lanterne" (où le jeu place la lueur) : centre du verre de la lanterne dans hub_lanterne.jpg
+    LANTERNE_SRC = (860, 670)
+    lx = ((LANTERNE_SRC[0] - lbox[0]) * lk + PAD) / W
+    ly = ((LANTERNE_SRC[1] - lbox[1]) * lk + PAD) / H
+    manifest["lanterne"] = [round(lx, 4), round(ly, 4)]
 
     # portrait de l'interface : 206 x 384, fond noir.
     # portrait_final.png (retouché à la main) est utilisé tel quel ; sinon il est fabriqué depuis portrait.jpg
@@ -305,12 +331,15 @@ def main():
     manifest["mort"] = "mort.png"
 
     # main gantée (heros_main) : remplace les poses "génériques" (utilisées par Pac-Man faute de version "_pacman")
-    glove = largest_part(remove_background(Image.open(os.path.join(HERE, "hand.jpg")), threshold=212))
+    #   main ouverte (hand_open.jpg) = main de base ; poing (hand.jpg) pour la main fermée, "non" et le doigt
+    fist = largest_part(remove_background(Image.open(os.path.join(HERE, "hand.jpg")), threshold=212))
+    open_hand = largest_part(remove_background(Image.open(os.path.join(HERE, "hand_open.jpg")), threshold=212))
     os.makedirs(os.path.join(OUT, "main"), exist_ok=True)
     manifest["main"] = []
     for anim, frame, w, h in game_frames("heros_main", HAND_ANIMS):
         name = f"main/{anim}_{frame}.png"
-        fit(glove, w, h, scale=0.97).save(os.path.join(OUT, name))
+        is_open = anim in ("ouverte", "agitation", "ecrase") or (anim == "fermee" and frame == 0)
+        fit(open_hand if is_open else fist, w, h, scale=0.97).save(os.path.join(OUT, name))
         manifest["main"].append({"anim": anim, "frame": frame, "file": name})
 
     with open(os.path.join(OUT, "manifest.json"), "w", encoding="utf-8") as f:

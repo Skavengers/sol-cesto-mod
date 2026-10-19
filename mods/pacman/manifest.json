@@ -288,7 +288,13 @@
  ],
  "hub": [
   "hub_0.png",
-  "hub_1.png"
+  "hub_1.png",
+  "hub_2.png",
+  "hub_3.png"
+ ],
+ "lanterne": [
+  0.8638,
+  0.6284
  ],
  "portrait": "portrait.png",
  "bras": "arm.png",
