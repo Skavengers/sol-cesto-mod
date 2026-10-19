@@ -1,0 +1,383 @@
+{
+ "heros": [
+  {
+   "anim": "idle",
+   "frame": 0,
+   "file": "heros/idle_0.png"
+  },
+  {
+   "anim": "idle",
+   "frame": 1,
+   "file": "heros/idle_1.png"
+  },
+  {
+   "anim": "idle",
+   "frame": 2,
+   "file": "heros/idle_2.png"
+  },
+  {
+   "anim": "idle",
+   "frame": 3,
+   "file": "heros/idle_3.png"
+  },
+  {
+   "anim": "idle",
+   "frame": 4,
+   "file": "heros/idle_4.png"
+  },
+  {
+   "anim": "idle",
+   "frame": 5,
+   "file": "heros/idle_5.png"
+  },
+  {
+   "anim": "idle",
+   "frame": 6,
+   "file": "heros/idle_6.png"
+  },
+  {
+   "anim": "idle",
+   "frame": 7,
+   "file": "heros/idle_7.png"
+  },
+  {
+   "anim": "idle",
+   "frame": 8,
+   "file": "heros/idle_8.png"
+  },
+  {
+   "anim": "idle",
+   "frame": 9,
+   "file": "heros/idle_9.png"
+  },
+  {
+   "anim": "attack",
+   "frame": 0,
+   "file": "heros/attack_0.png"
+  },
+  {
+   "anim": "attack",
+   "frame": 1,
+   "file": "heros/attack_1.png"
+  },
+  {
+   "anim": "attack",
+   "frame": 2,
+   "file": "heros/attack_2.png"
+  },
+  {
+   "anim": "attack",
+   "frame": 3,
+   "file": "heros/attack_3.png"
+  },
+  {
+   "anim": "attack",
+   "frame": 4,
+   "file": "heros/attack_4.png"
+  },
+  {
+   "anim": "attack",
+   "frame": 5,
+   "file": "heros/attack_5.png"
+  },
+  {
+   "anim": "attack",
+   "frame": 6,
+   "file": "heros/attack_6.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 0,
+   "file": "heros/hurt_0.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 1,
+   "file": "heros/hurt_1.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 2,
+   "file": "heros/hurt_2.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 3,
+   "file": "heros/hurt_3.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 4,
+   "file": "heros/hurt_4.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 5,
+   "file": "heros/hurt_5.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 6,
+   "file": "heros/hurt_6.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 7,
+   "file": "heros/hurt_7.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 8,
+   "file": "heros/hurt_8.png"
+  },
+  {
+   "anim": "hurt",
+   "frame": 9,
+   "file": "heros/hurt_9.png"
+  },
+  {
+   "anim": "open",
+   "frame": 0,
+   "file": "heros/open_0.png"
+  },
+  {
+   "anim": "open",
+   "frame": 1,
+   "file": "heros/open_1.png"
+  },
+  {
+   "anim": "open",
+   "frame": 2,
+   "file": "heros/open_2.png"
+  },
+  {
+   "anim": "open",
+   "frame": 3,
+   "file": "heros/open_3.png"
+  },
+  {
+   "anim": "open",
+   "frame": 4,
+   "file": "heros/open_4.png"
+  },
+  {
+   "anim": "open",
+   "frame": 5,
+   "file": "heros/open_5.png"
+  },
+  {
+   "anim": "open",
+   "frame": 6,
+   "file": "heros/open_6.png"
+  },
+  {
+   "anim": "openHeal",
+   "frame": 0,
+   "file": "heros/openHeal_0.png"
+  },
+  {
+   "anim": "openHeal",
+   "frame": 1,
+   "file": "heros/openHeal_1.png"
+  },
+  {
+   "anim": "openHeal",
+   "frame": 2,
+   "file": "heros/openHeal_2.png"
+  },
+  {
+   "anim": "openHeal",
+   "frame": 3,
+   "file": "heros/openHeal_3.png"
+  },
+  {
+   "anim": "openHeal",
+   "frame": 4,
+   "file": "heros/openHeal_4.png"
+  },
+  {
+   "anim": "openHeal",
+   "frame": 5,
+   "file": "heros/openHeal_5.png"
+  },
+  {
+   "anim": "openHeal",
+   "frame": 6,
+   "file": "heros/openHeal_6.png"
+  },
+  {
+   "anim": "piques_idle",
+   "frame": 0,
+   "file": "heros/piques_idle_0.png"
+  },
+  {
+   "anim": "piques_idle",
+   "frame": 1,
+   "file": "heros/piques_idle_1.png"
+  },
+  {
+   "anim": "piques_idle",
+   "frame": 2,
+   "file": "heros/piques_idle_2.png"
+  },
+  {
+   "anim": "piques_idle",
+   "frame": 3,
+   "file": "heros/piques_idle_3.png"
+  },
+  {
+   "anim": "piques_idle",
+   "frame": 4,
+   "file": "heros/piques_idle_4.png"
+  },
+  {
+   "anim": "piques_idle",
+   "frame": 5,
+   "file": "heros/piques_idle_5.png"
+  },
+  {
+   "anim": "piques_idle",
+   "frame": 6,
+   "file": "heros/piques_idle_6.png"
+  },
+  {
+   "anim": "hurt2",
+   "frame": 0,
+   "file": "heros/hurt2_0.png"
+  },
+  {
+   "anim": "hurt2",
+   "frame": 1,
+   "file": "heros/hurt2_1.png"
+  },
+  {
+   "anim": "hurt2",
+   "frame": 2,
+   "file": "heros/hurt2_2.png"
+  },
+  {
+   "anim": "hurt2",
+   "frame": 3,
+   "file": "heros/hurt2_3.png"
+  },
+  {
+   "anim": "piques_hurt",
+   "frame": 0,
+   "file": "heros/piques_hurt_0.png"
+  },
+  {
+   "anim": "piques_hurt",
+   "frame": 1,
+   "file": "heros/piques_hurt_1.png"
+  },
+  {
+   "anim": "piques_hurt",
+   "frame": 2,
+   "file": "heros/piques_hurt_2.png"
+  },
+  {
+   "anim": "piques_hurt",
+   "frame": 3,
+   "file": "heros/piques_hurt_3.png"
+  },
+  {
+   "anim": "bounce",
+   "frame": 0,
+   "file": "heros/bounce_0.png"
+  }
+ ],
+ "hub": [
+  "hub_0.png",
+  "hub_1.png"
+ ],
+ "portrait": "portrait.png",
+ "bras": "arm.png",
+ "mort": "mort.png",
+ "main": [
+  {
+   "anim": "ouverte",
+   "frame": 0,
+   "file": "main/ouverte_0.png"
+  },
+  {
+   "anim": "fermee",
+   "frame": 0,
+   "file": "main/fermee_0.png"
+  },
+  {
+   "anim": "fermee",
+   "frame": 1,
+   "file": "main/fermee_1.png"
+  },
+  {
+   "anim": "fermee",
+   "frame": 2,
+   "file": "main/fermee_2.png"
+  },
+  {
+   "anim": "fermee",
+   "frame": 3,
+   "file": "main/fermee_3.png"
+  },
+  {
+   "anim": "agitation",
+   "frame": 0,
+   "file": "main/agitation_0.png"
+  },
+  {
+   "anim": "agitation",
+   "frame": 1,
+   "file": "main/agitation_1.png"
+  },
+  {
+   "anim": "ecrase",
+   "frame": 0,
+   "file": "main/ecrase_0.png"
+  },
+  {
+   "anim": "nop",
+   "frame": 0,
+   "file": "main/nop_0.png"
+  },
+  {
+   "anim": "nop",
+   "frame": 1,
+   "file": "main/nop_1.png"
+  },
+  {
+   "anim": "nop",
+   "frame": 2,
+   "file": "main/nop_2.png"
+  },
+  {
+   "anim": "nop",
+   "frame": 3,
+   "file": "main/nop_3.png"
+  },
+  {
+   "anim": "nop",
+   "frame": 4,
+   "file": "main/nop_4.png"
+  },
+  {
+   "anim": "nop",
+   "frame": 5,
+   "file": "main/nop_5.png"
+  },
+  {
+   "anim": "nop",
+   "frame": 6,
+   "file": "main/nop_6.png"
+  },
+  {
+   "anim": "nop",
+   "frame": 7,
+   "file": "main/nop_7.png"
+  },
+  {
+   "anim": "doigt",
+   "frame": 0,
+   "file": "main/doigt_0.png"
+  }
+ ]
+}

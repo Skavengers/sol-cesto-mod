@@ -1,0 +1,25 @@
+# Never commit game files
+*.exe
+*.dll
+*.pak
+*.node
+*.dylib
+*.so
+package.zip
+data.json
+tableau_*.json
+scripts/
+images/
+media/
+fonts/
+icons/
+locales/
+index.html
+index.original.html
+package.json
+steam_appid.txt
+greenworks.js
+
+# Python / temporary files
+__pycache__/
+*.pyc
